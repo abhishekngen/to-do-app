@@ -1,9 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
+const backend_url = import.meta.env.VITE_BACKEND_URL;
+
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (args, {rejectWithValue}) =>
 {
     try {
-        const response = await fetch('http://localhost:3000/tasks');
+        const response = await fetch(backend_url + '/tasks');
         if (!response.ok) {
             throw new Error(response.statusText);
         }
@@ -21,7 +23,7 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (args, {rej
 export const addTask = createAsyncThunk('tasks/addTask', async (args, {rejectWithValue}) =>
 {
     try {
-        const response = await fetch('http://localhost:3000/tasks', {
+        const response = await fetch(backend_url + '/tasks', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +51,7 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (args, {rej
             currentStatus: args.currentStatus,
             newStatus: args.newStatus,
         }));
-        const response = await fetch('http://localhost:3000/tasks', {
+        const response = await fetch(backend_url + '/tasks', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -73,7 +75,7 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (args, {rej
 export const deleteTask = createAsyncThunk('tasks/deleteTask', async (args, {rejectWithValue}) =>
 {
     try {
-        const response = await fetch('http://localhost:3000/tasks', {
+        const response = await fetch(backend_url + '/tasks', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
